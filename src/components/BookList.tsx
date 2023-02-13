@@ -1,8 +1,10 @@
-import { bookType } from "../types/bookType";
+import { useContext } from "react";
+import { BookContext } from "../contexts/BookContext";
 import BookDetails from "./BookDetails";
 
 const BookList = () => {
-  const books: bookType[] = [];
+  const { books } = useContext(BookContext)!;
+  console.log(books);
   return books.length ? (
     <div className="book-list">
       <ul>

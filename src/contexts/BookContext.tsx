@@ -10,18 +10,21 @@ interface BookContextType {
 
 export const BookContext = createContext<BookContextType | null>(null);
 
-class BookContextProvider extends Component<PropsWithChildren, bookType[]> {
-  state: bookType[] = [];
+class BookContextProvider extends Component<PropsWithChildren> {
+  state: { books: bookType[] } = { books: [] as bookType[] };
   addBook = (title: string, author: string) =>
-    this.setState([...this.state, { title, author, id: uuid() }]);
+    this.setState({
+      books: [...this.state.books, { title, author, id: uuid() }],
+    });
   removeBook = (id: string) =>
-    this.setState(this.state.filter((book) => book.id !== id));
+    this.setState({ books: this.state.books.filter((book) => book.id !== id) });
 
   render() {
+    console.log("aa", this.state);
     return (
       <BookContext.Provider
         value={{
-          books: this.state,
+          books: this.state.books,
           addBook: this.addBook,
           removeBook: this.removeBook,
         }}
